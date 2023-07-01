@@ -33,11 +33,14 @@ def check_table():
             '//*[@id="ui-id-1"]'
         ))
     )
-    print(elem.get_attribute('title'))
-    web_driver.implicitly_wait(1000)
+    if elem is not None:
+        elem_title = elem.get_attribute('title')
+    else:
+        elem_title =  'no elements'
     web_driver.quit()
+    return elem_title 
 
 
 if __name__ == '__main__':
-    check_table()
+    print(check_table())
 
