@@ -5,6 +5,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
+import telebot
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def check_table():
     web_driver = webdriver.Chrome()
@@ -38,7 +44,7 @@ def check_table():
     else:
         elem_title =  'no elements'
     web_driver.quit()
-    return elem_title 
+    return elem_title
 
 
 if __name__ == '__main__':
