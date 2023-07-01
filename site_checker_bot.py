@@ -7,9 +7,26 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 import telebot
 
+import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
+
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+
+bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttom_check = telebot.types.KeyboardButton('Check the site')
+    markup.add(buttom_check)
+    bot.send_message(
+        message.chat.id,
+        'Check the date on the site?',
+        reply_markup=markup
+    )
 
 
 def check_table():
@@ -40,13 +57,19 @@ def check_table():
         ))
     )
     if elem is not None:
-        elem_title = elem.get_attribute('title')
+        cur_title = elem.get_attribute('title')
+        elem_title = (f'{cur_title} \n'
+                      f'{web_driver.current_url}')
     else:
-        elem_title =  'no elements'
+        elem_title = 'no elements'
     web_driver.quit()
     return elem_title
 
 
-if __name__ == '__main__':
-    print(check_table())
+@bot.message_handler(content_types=['text'])
+def bot_message(message):
+    if message.text == 'Check the site':
+        bot.send_message(message.chat.id, check_table())
 
+
+bot.polling(none_stop=True)
