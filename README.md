@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ```
 Then create .env file in project folder and write in your chat bot token:
 ```
-TELEGRAM_TOKEN=6052918542:AAGuPI_QrqwoaWODNQf5sT9F7oRvwDMlbuc
+TELEGRAM_TOKEN=6##########################################c
 ```
 
 Your can get you bot token in Telegram using telegram bot @BotFather using commands:
